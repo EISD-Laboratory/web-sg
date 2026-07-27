@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Study Group EISD",
   description: "Enterprise Intelligent System Development Study Group",
   icons: {
-    icon: "/images/logo-eisd.png",
+    icon: "/images/logo-eisd.webp",
   },
 };
 

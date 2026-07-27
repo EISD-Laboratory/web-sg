@@ -23,21 +23,21 @@ export default function SoftwareDevelopmentPage() {
   const [isInfoExpanded, setIsInfoExpanded] = useState(false);
 
   const frontEndStack: TechItem[] = [
-    { name: "HTML", image: "/images/HTML.png" },
-    { name: "CSS", image: "/images/CSS.png" },
-    { name: "JavaScript", image: "/images/JavaScript.png" },
+    { name: "HTML", image: "/images/HTML.webp" },
+    { name: "CSS", image: "/images/CSS.webp" },
+    { name: "JavaScript", image: "/images/JavaScript.webp" },
     { name: "Next.js", image: "/images/Next Js.svg" },
   ];
 
   const backEndStack: TechItem[] = [
-    { name: "Express.js", image: "/images/express-js.jpg" },
+    { name: "Express.js", image: "/images/express-js.webp" },
     { name: "Node.js", image: "/images/node js.svg" },
   ];
 
   const toolsStack: TechItem[] = [
-    { name: "VS Code", image: "/images/vscode.png" },
-    { name: "Github", image: "/images/github.jpg" },
-    { name: "Postman", image: "/images/postman.png" },
+    { name: "VS Code", image: "/images/vscode.webp" },
+    { name: "Github", image: "/images/github.webp" },
+    { name: "Postman", image: "/images/postman.webp" },
   ];
 
   const syllabus = [

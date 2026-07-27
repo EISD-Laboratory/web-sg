@@ -6,11 +6,14 @@ import { RouteMap } from "@/components/RouteMap";
 import { AnnouncementCheck } from "@/components/AnnouncementCheck";
 import { Documentation } from "@/components/Documentation";
 import { Footer } from "@/components/Footer";
+import { WelcomeModal } from "@/components/WelcomeModal";
+import { welcomeModalConfig } from "@/config/welcome-modal";
 
 export default function Home() {
   return (
     <main className="relative min-h-screen w-full overflow-hidden text-foreground">
       <DreamyBackground />
+      <WelcomeModal {...welcomeModalConfig} />
       <Navbar />
       <Hero />
       <Divisions />

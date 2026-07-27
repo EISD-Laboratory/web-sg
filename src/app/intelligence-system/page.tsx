@@ -25,9 +25,9 @@ export default function IntelligenceSystemPage() {
   // Tools Stack
   const toolsStack: TechItem[] = [
     { name: "Arduino IDE", image: "/images/arduino-ide.svg" },
-    { name: "Driver CH340", image: "/images/driver-ch340.png" },
-    { name: "Blynk", image: "/images/blynk.jpg" },
-    { name: "Firebase", image: "/images/firebase.png" },
+    { name: "Driver CH340", image: "/images/driver-ch340.webp" },
+    { name: "Blynk", image: "/images/blynk.webp" },
+    { name: "Firebase", image: "/images/firebase.webp" },
   ];
 
   const syllabus = [
