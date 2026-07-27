@@ -69,7 +69,7 @@ export function Navbar() {
                {/* Static Image (Shown until video is ready) */}
                {!isVideoReady && (
                  <Image 
-                    src="/images/logo-eisd.png" 
+                    src="/images/logo-eisd.webp"
                     alt="EISD Logo" 
                     fill
                     sizes="40px"

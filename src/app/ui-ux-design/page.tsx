@@ -30,7 +30,7 @@ export default function UiUxDesignPage() {
   // Note: Add images to public/images and update paths here
   const toolsStack: TechItem[] = [
     { name: "Figma", image: "/images/figma.svg" },
-    { name: "Maze", image: "/images/maze.jpg" },
+    { name: "Maze", image: "/images/maze.webp" },
   ];
 
   const phases = [

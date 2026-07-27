@@ -12,7 +12,7 @@ export function Footer() {
           <div className="space-y-4">
             <div className="relative mb-2 h-16 w-40">
               <Image
-                src="/images/logo-vertical-eisd.png"
+                src="/images/logo-vertical-eisd.webp"
                 alt="EISD Laboratory Logo"
                 fill
                 sizes="160px"

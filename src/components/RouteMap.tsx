@@ -22,7 +22,7 @@ export function RouteMap() {
         <div className="relative mx-auto w-full overflow-hidden rounded-2xl border border-black/5 bg-white p-2 shadow-sm transition-all duration-300 hover:shadow-md">
             <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-gray-50">
                 <Image
-                    src="/images/route-map.png"
+                    src="/images/route-map.webp"
                     alt="Study Group Route Map"
                     fill
                     className="object-contain"
