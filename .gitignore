@@ -22,7 +22,20 @@
 
 # misc
 .DS_Store
+Thumbs.db
+desktop.ini
 *.pem
+
+# editor
+.vscode/
+.idea/
+
+# backup / stray output files
+*.bak
+*.old
+*.orig
+*~
+install_error.txt
 
 # debug
 npm-debug.log*

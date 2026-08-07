@@ -33,7 +33,7 @@ export function Footer() {
             <ul className="space-y-3 text-gray-400">
               <li className="flex items-start gap-3">
                 <Mail className="mt-1 h-5 w-5 shrink-0 text-gray-300" />
-                <a href="mailto:lab.eisd@gmail.com" className="hover:text-white transition-colors">
+                <a href="mailto:eisdlaboratory@gmail.com" className="hover:text-white transition-colors">
                   eisdlaboratory@gmail.com
                 </a>
               </li>
@@ -55,6 +55,7 @@ export function Footer() {
               <Link
                 href="https://www.instagram.com/peopleateisd/"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20"
               >
                 <Instagram className="h-5 w-5" />
@@ -62,6 +63,7 @@ export function Footer() {
               <Link
                 href="https://www.linkedin.com/company/eisd-laboratory"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20"
               >
                 <Linkedin className="h-5 w-5" />
@@ -69,6 +71,7 @@ export function Footer() {
               <Link
                 href="https://github.com/EISD-Laboratory/"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20"
               >
                 <Github className="h-5 w-5" />
