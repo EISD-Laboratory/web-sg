@@ -2,9 +2,9 @@ import { StudentResult } from "./types";
 
 export const SOFTDEV_RESULTS: StudentResult[] = [
   /*{
-    name: "Muhammad Zuhdi Robbani",
-    nim: "102022400278",
+    name: "Nama Contoh",
+    nim: "1020224000000",
     division: "Software Development",
     status: "Passed",
-  },*/  
+  },*/
 ];

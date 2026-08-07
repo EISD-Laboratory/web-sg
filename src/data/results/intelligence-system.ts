@@ -2,8 +2,8 @@ import { StudentResult } from "./types";
 
 export const IS_RESULTS: StudentResult[] = [
   /*{
-    name: "Ali Rahman Bayanaka",
-    nim: "102022400053",
+    name: "Nama Contoh",
+    nim: "1020224000000",
     division: "Intelligence System",
     status: "Passed",
   },*/
