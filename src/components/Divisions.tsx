@@ -49,26 +49,27 @@ export function Divisions() {
         <div className="mb-16">
           <div className="flex items-center gap-12">
             <div className="h-px flex-1 bg-gray-300"></div>
-            <h2 className="shrink-0 text-3xl font-bold tracking-tight text-[#1C1629] sm:text-4xl">
+            <h2 className="animate-fade-in-up stagger-0 shrink-0 text-3xl font-bold tracking-tight text-[#1C1629] sm:text-4xl">
               Our Divisions
             </h2>
             <div className="h-px flex-1 bg-gray-300"></div>
           </div>
-          <p className="mt-4 text-center text-lg text-muted-foreground">
+          <p className="animate-fade-in-up stagger-1 mt-4 text-center text-lg text-muted-foreground">
             Specialized tracks to master specific domains of technology.
           </p>
         </div>
 
         {/* Divisions Grid */}
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {divisions.map((div) => (
+          {divisions.map((div, i) => (
             <Link
               key={div.name}
               href={div.href || `#${div.id}`}
-              className="group relative flex flex-col rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="animate-fade-in-up group relative flex flex-col rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-transform duration-200 ease-out transition-shadow duration-300 ease hover:-translate-y-1 hover:shadow-xl active:scale-[0.98]"
+              style={{ animationDelay: `${(i + 1) * 60}ms` }}
             >
               {/* Icon */}
-              <div className={`mb-6 flex h-14 w-14 items-center justify-center rounded-xl ${div.color} transition-transform duration-300 group-hover:scale-110`}>
+              <div className={`mb-6 flex h-14 w-14 items-center justify-center rounded-xl ${div.color} transition-transform duration-200 ease-out group-hover:scale-110`}>
                 <Image src={div.image} alt={div.name} width={div.imageSize} height={div.imageSize} />
               </div>
 
@@ -81,8 +82,8 @@ export function Divisions() {
               </p>
 
               {/* "Learn More" visual cue */}
-              <div className="mt-auto flex items-center text-sm font-semibold text-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                Learn more <ArrowRight className="ml-2 h-4 w-4" />
+              <div className="mt-auto flex items-center text-sm font-semibold text-primary opacity-0 transition-all duration-200 ease-out group-hover:opacity-100 group-hover:translate-x-0 -translate-x-2">
+                Learn more <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1" />
               </div>
             </Link>
           ))}

@@ -23,7 +23,7 @@ export function Navbar() {
   const [prevPathname, setPrevPathname] = useState<string | null>(null);
   const pathname = usePathname();
 
-  // Close mobile menu on route change (adjusting state during render avoids cascading effects)
+  // Close mobile menu on route change
   if (prevPathname !== null && prevPathname !== pathname) {
     setMobileMenuOpen(false);
     setPrevPathname(pathname);
@@ -49,43 +49,40 @@ export function Navbar() {
 
   // Safe toggle with debounce protection
   const handleMenuToggle = () => {
-    if (isToggling) return; // Prevent rapid clicks
+    if (isToggling) return;
     setIsToggling(true);
     setMobileMenuOpen(!mobileMenuOpen);
-    setTimeout(() => setIsToggling(false), 300); // 300ms debounce
+    setTimeout(() => setIsToggling(false), 300);
   };
 
   return (
     <>
-      <nav className="fixed top-6 left-1/2 z-110 -translate-x-1/2 w-[90%] max-w-5xl rounded-full border border-white/20 bg-white/95 md:bg-white/90 backdrop-blur-sm md:backdrop-blur-xl shadow-lg shadow-black/5 transition-all">
+      <nav className="fixed top-6 left-1/2 z-110 -translate-x-1/2 w-[90%] max-w-5xl rounded-full border border-white/20 bg-white/95 md:bg-white/90 backdrop-blur-sm md:backdrop-blur-xl shadow-lg shadow-black/5 transition-all duration-300 ease-out">
         <div className="flex h-14 items-center justify-between px-2 pl-6 pr-2">
           {/* Left: Logo */}
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="flex items-center gap-2"
             onMouseEnter={handleMouseEnter}
           >
             <div className="relative h-10 w-10 overflow-hidden">
-               {/* Static Image (Shown until video is ready) */}
                {!isVideoReady && (
-                 <Image 
+                 <Image
                     src="/images/logo-eisd.webp"
-                    alt="EISD Logo" 
+                    alt="EISD Logo"
                     fill
                     sizes="40px"
                     className="object-contain scale-[1.2]"
                     priority
                  />
                )}
-               
-               {/* Video Animation (Hidden until loaded) */}
                <video
                 ref={videoRef}
                 src="/video/animasi-logo-eisd.webm"
                 muted
                 playsInline
                 className={cn(
-                  "h-full w-full object-contain scale-[2.5] transition-opacity duration-500 mix-blend-multiply",
+                  "h-full w-full object-contain scale-[2.5] transition-opacity duration-500 ease-out mix-blend-multiply",
                   isVideoReady ? "opacity-100" : "opacity-0"
                 )}
                 onLoadedMetadata={(e) => {
@@ -98,6 +95,7 @@ export function Navbar() {
                />
             </div>
           </Link>
+
           {/* Center: Desktop Nav Links */}
           <div className="hidden items-center gap-6 md:flex">
             {navLinks.map((link) => {
@@ -107,13 +105,13 @@ export function Navbar() {
                   key={link.name}
                   href={link.href}
                   className={cn(
-                    "relative text-xs font-medium transition-colors hover:text-primary lg:text-sm",
+                    "relative text-xs font-medium transition-colors duration-200 ease-out hover:text-primary lg:text-sm",
                     isActive ? "text-primary font-bold" : "text-muted-foreground"
                   )}
                 >
                   {link.name}
                   {isActive && (
-                    <span className="absolute -bottom-1 left-0 h-0.5 w-full bg-primary rounded-full"></span>
+                    <span className="absolute -bottom-1 left-0 h-0.5 w-full bg-primary rounded-full transition-all duration-200 ease-out"></span>
                   )}
                 </Link>
               );
@@ -126,7 +124,7 @@ export function Navbar() {
               href="https://wa.me/6282193199898"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex items-center justify-center rounded-full bg-linear-to-r from-[#6366f1] to-[#a855f7] px-6 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition-all hover:scale-105 hover:shadow-xl hover:shadow-purple-500/30 hover:brightness-110 active:scale-95"
+              className="group relative inline-flex items-center justify-center rounded-full bg-linear-to-r from-[#6366f1] to-[#a855f7] px-6 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition-transform duration-160 ease-out transition-shadow duration-200 ease-out hover:scale-105 hover:shadow-xl hover:shadow-purple-500/30 hover:brightness-110 active:scale-95"
             >
               Contact Us
             </Link>
@@ -134,7 +132,7 @@ export function Navbar() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden p-2 text-foreground"
+            className="md:hidden p-2 text-foreground transition-transform duration-160 ease-out active:scale-90"
             onClick={handleMenuToggle}
             disabled={isToggling}
           >
@@ -144,37 +142,47 @@ export function Navbar() {
       </nav>
 
       {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-100 bg-background/95 backdrop-blur-sm pt-24 md:hidden">
-          <div className="flex flex-col items-center gap-6 p-6 pointer-events-auto">
-            {navLinks.map((link) => {
-               const isActive = pathname === link.href;
-               return (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className={cn(
-                    "text-lg font-medium transition-colors hover:text-primary",
-                    isActive ? "text-primary font-bold" : "text-foreground"
-                  )}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              );
-            })}
-            <Link
-              href="https://wa.me/6282193199898"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 group relative inline-flex items-center justify-center rounded-full bg-linear-to-r from-[#6366f1] to-[#a855f7] px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition-all active:scale-95"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-             Contact Us
-            </Link>
-          </div>
+      <div
+        className={cn(
+          "fixed inset-0 z-100 bg-background/95 backdrop-blur-sm pt-24 md:hidden transition-all duration-200 ease-out",
+          mobileMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        )}
+      >
+        <div className="flex flex-col items-center gap-6 p-6">
+          {navLinks.map((link, i) => {
+             const isActive = pathname === link.href;
+             return (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={cn(
+                  "text-lg font-medium transition-colors duration-200 ease-out hover:text-primary",
+                  isActive ? "text-primary font-bold" : "text-foreground",
+                  mobileMenuOpen ? "animate-fade-in-up" : "opacity-0"
+                )}
+                style={{ animationDelay: mobileMenuOpen ? `${i * 40}ms` : "0ms" }}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
+          <Link
+            href="https://wa.me/6282193199898"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              "mt-4 group relative inline-flex items-center justify-center rounded-full bg-linear-to-r from-[#6366f1] to-[#a855f7] px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition-transform duration-160 ease-out active:scale-95",
+              mobileMenuOpen ? "animate-fade-in-up stagger-5" : "opacity-0"
+            )}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+           Contact Us
+          </Link>
         </div>
-      )}
+      </div>
     </>
   );
 }
