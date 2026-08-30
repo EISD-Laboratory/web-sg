@@ -13,6 +13,11 @@
 # testing
 /coverage
 
+# playwright-cli generated output
+.playwright-cli/
+e2e/build/
+.playwright-cli/
+
 # next.js
 /.next/
 /out/
