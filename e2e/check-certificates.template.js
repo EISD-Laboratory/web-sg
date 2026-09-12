@@ -38,7 +38,7 @@ async page => {
         const anchor = anchors.nth(i);
         const title = (await anchor.textContent()).trim();
         const href = await anchor.getAttribute('href');
-        row.checks.push({ c: 'cert#' + i, ok: title === cert.title && href === cert.notion_link });
+        row.checks.push({ c: 'cert#' + i, ok: title === cert.title && href === cert.drive_link });
       }
     } catch (err) {
       row.fail = String(err).split('\n')[0];

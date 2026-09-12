@@ -43,8 +43,10 @@ case fails.
 e2e/
 ├── lib/
 │   ├── build-expected.mjs            # transpiles src/data/certificates/index.ts → build/expected.json
-│   └── run.mjs                       # orchestrator: bundle template → playwright-cli run-code → report
+│   ├── run.mjs                       # orchestrator: bundle template → playwright-cli run-code → report
+│   └── run-drive-check.mjs           # orchestrator for Drive link verification (no local server needed)
 ├── check-certificates.template.js    # the verify loop (single expression, runs in run-code sandbox)
+├── check-drive-links.template.js     # visits every drive_link: accessible? owner name present?
 └── build/                            # gitignored generated artifacts
 ```
 
@@ -62,3 +64,37 @@ by hand.
   `sudo npx playwright-cli install-deps chromium` (or apt: `libnss3 libnspr4 libasound2`).
 - **Port already in use** — the runner targets `http://localhost:3000`; change
   with `E2E_BASE_URL`.
+
+## Drive link verification (ownership + accessibility)
+
+Visits every `drive_link` in `src/data/certificates/index.ts` with Playwright
+and checks two things per certificate:
+
+1. **Accessible** — Drive renders instead of `Request access` / `not found` /
+   login wall / quota error.
+2. **Owner match (strict)** — the student's full name appears in the Drive page
+   title / `og:title` / body text (underscores normalized to spaces, `M. Faizul`
+   also matches `faizul kamal`). Team folders are checked strictly too, so they
+   will normally report `fail-owner` unless the folder page lists the name.
+
+Bot/consent pages (`consent.google.com`, captcha, `unusual traffic`) are reported
+as `needs-manual` and do **not** fail the run. Only `fail-access` / `fail-owner`
+exit non-zero.
+
+```bash
+# all 64 links (~5-10 min, 1.5s delay between hits)
+npm run e2e:drive-check
+
+# faster trial: first 2 students only
+npm run e2e:drive-check -- --limit=2
+
+# specific NIMs only
+npm run e2e:drive-check -- --nim=102022400135,103032300040
+
+# tune delay (ms) to be gentler on Google rate-limiting
+E2E_DELAY_MS=2500 npm run e2e:drive-check
+```
+
+Output: `e2e/build/drive-check.json` with `{ summary, details[] }` where each
+detail is `{ nim, name, title, linkType: file|folder, accessible, ownerMatch,
+status: pass|fail-access|fail-owner|needs-manual, titleSeen, note }`.

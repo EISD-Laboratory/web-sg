@@ -1,6 +1,6 @@
 export interface Certificate {
   title: string;
-  notion_link: string;
+  drive_link: string;
 }
 
 export interface StudentCertificate {

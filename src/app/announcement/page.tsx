@@ -128,7 +128,7 @@ function CertificateResult() {
             {student.certificates.map((cert, i) => (
               <a
                 key={cert.title}
-                href={cert.notion_link}
+                href={cert.drive_link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="animate-fade-in-up inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-transform duration-160 ease-out transition-shadow duration-200 ease-out hover:-translate-y-0.5 shadow-sm hover:shadow-md sm:min-w-[280px] sm:px-8 sm:py-3.5 sm:text-base bg-linear-to-r from-[#6366f1] to-[#a855f7] hover:brightness-110 shadow-purple-500/30 hover:shadow-purple-500/40 active:scale-[0.97]"
