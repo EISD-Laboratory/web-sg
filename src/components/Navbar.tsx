@@ -124,7 +124,7 @@ export function Navbar() {
               href="https://wa.me/6282193199898"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex items-center justify-center rounded-full bg-linear-to-r from-[#6366f1] to-[#a855f7] px-6 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition-transform duration-160 ease-out transition-shadow duration-200 ease-out hover:scale-105 hover:shadow-xl hover:shadow-purple-500/30 hover:brightness-110 active:scale-95"
+              className="group relative inline-flex items-center justify-center rounded-full border-2 border-primary/20 px-6 py-2 text-sm font-semibold text-primary transition-all duration-200 ease-out hover:scale-105 hover:border-primary/40 hover:bg-primary/5 active:scale-95"
             >
               Contact Us
             </Link>
@@ -174,7 +174,7 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              "mt-4 group relative inline-flex items-center justify-center rounded-full bg-linear-to-r from-[#6366f1] to-[#a855f7] px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition-transform duration-160 ease-out active:scale-95",
+              "mt-4 group relative inline-flex items-center justify-center rounded-full border-2 border-primary/20 px-8 py-3 text-sm font-semibold text-primary transition-all duration-200 ease-out hover:border-primary/40 hover:bg-primary/5 active:scale-95",
               mobileMenuOpen ? "animate-fade-in-up stagger-5" : "opacity-0"
             )}
             onClick={() => setMobileMenuOpen(false)}

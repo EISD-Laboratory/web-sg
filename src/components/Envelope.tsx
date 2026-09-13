@@ -75,7 +75,7 @@ export function Envelope({ status }: SimpleEnvelopeProps) {
         <div
           className={cn(
             "absolute bottom-0 w-full h-20 rounded-b-md shadow-sm z-10",
-            isPassed ? "bg-primary" : "bg-gray-400"
+            isPassed ? "bg-[#1C1629]" : "bg-gray-400"
           )}
         />
 
@@ -98,7 +98,7 @@ export function Envelope({ status }: SimpleEnvelopeProps) {
           >
             <path
               d="M0,0 L50,40 L100,0 Z"
-              className={isPassed ? "fill-primary" : "fill-gray-500"}
+              className={isPassed ? "fill-[#1C1629]" : "fill-gray-500"}
             />
           </svg>
         </div>
@@ -124,9 +124,9 @@ export function Envelope({ status }: SimpleEnvelopeProps) {
 
            <div className={cn(
              "mt-3 text-[10px] font-bold uppercase tracking-widest",
-             isPassed ? "text-primary" : "text-gray-400"
+             isPassed ? "text-[#1C1629]" : "text-gray-400"
            )}>
-             {isPassed ? "Accepted" : "Notice"}
+             {isPassed ? "Congratulations" : "Notice"}
            </div>
         </div>
 
@@ -135,7 +135,7 @@ export function Envelope({ status }: SimpleEnvelopeProps) {
            <svg viewBox="0 0 100 60" className="w-full h-full" preserveAspectRatio="none">
               <path
                 d="M0,0 L50,35 L100,0 L100,60 L0,60 Z"
-                className={isPassed ? "fill-primary" : "fill-gray-400"}
+                className={isPassed ? "fill-[#1C1629]" : "fill-gray-400"}
               />
               <path d="M0,0 L50,35 L100,0" fill="none" stroke="rgba(0,0,0,0.1)" strokeWidth="0.5" />
            </svg>

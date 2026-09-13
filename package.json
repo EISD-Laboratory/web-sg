@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "e2e:check": "node e2e/lib/run.mjs",
-    "e2e:drive-check": "node e2e/lib/run-drive-check.mjs"
+    "lint": "eslint"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",
@@ -20,7 +18,6 @@
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
-    "@playwright/cli": "^0.1.18",
     "@tailwindcss/postcss": "^4",
     "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^20",

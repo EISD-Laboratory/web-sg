@@ -2,25 +2,34 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { CERTIFICATES } from "@/data/certificates";
 import { Search } from "lucide-react";
+import { CERTIFICATE_NIM_STORAGE_KEY } from "@/lib/certificate-session";
 
 export function CertificateChecker() {
   const [nim, setNim] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     const trimmedNim = nim.trim();
     if (!trimmedNim) return;
 
-    const found = CERTIFICATES.find((r) => r.nim.trim() === trimmedNim);
-    if (found) {
-      router.push(`/announcement?nim=${encodeURIComponent(trimmedNim)}`);
-    } else {
-      setError("Certificate not found. Please double-check your NIM.");
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/certificates?nim=${encodeURIComponent(trimmedNim)}`);
+      if (res.ok) {
+        sessionStorage.setItem(CERTIFICATE_NIM_STORAGE_KEY, trimmedNim);
+        router.push("/announcement");
+      } else {
+        setError("Certificate not found. Please double-check your NIM.");
+      }
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,15 +76,16 @@ export function CertificateChecker() {
                 error ? "opacity-100 max-h-10" : "opacity-0 max-h-0 overflow-hidden"
               }`}
             >
-              {error || "\u00A0"}
+              {error || " "}
             </p>
 
             <button
               type="submit"
-              className="mt-2 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-linear-to-r from-[#6366f1] to-[#a855f7] px-4 py-3 font-semibold text-white shadow-lg shadow-purple-500/30 transition-transform duration-160 ease-out transition-shadow duration-200 ease-out hover:scale-[1.02] hover:shadow-xl hover:shadow-purple-500/40 hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-purple-500/20 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
+              disabled={loading}
+              className="mt-2 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 font-semibold text-white shadow-sm transition-transform duration-160 ease-out transition-shadow duration-200 ease-out hover:scale-[1.02] hover:shadow-md hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-primary/20 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
             >
               <Search className="h-5 w-5" />
-              Search Certificate
+              {loading ? "Searching..." : "Search Certificate"}
             </button>
           </form>
         </div>

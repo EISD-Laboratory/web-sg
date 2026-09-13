@@ -1,10 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { MousePointer2, X, Award } from "lucide-react";
 
 export function Hero() {
   const [showToast, setShowToast] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleClick = () => {
     setShowToast(true);
@@ -33,9 +39,9 @@ export function Hero() {
             <button
               type="button"
               onClick={handleClick}
-              className="group relative inline-flex items-center justify-center rounded-full bg-white p-1.5 shadow-xl shadow-purple-500/30 transition-transform duration-160 ease-out hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/40 active:scale-95 cursor-pointer"
+              className="group relative inline-flex items-center justify-center rounded-full bg-white p-1.5 shadow-md transition-transform duration-160 ease-out hover:scale-105 hover:shadow-lg active:scale-95 cursor-pointer"
             >
-              <div className="flex min-w-[200px] items-center justify-center gap-2 rounded-full bg-linear-to-r from-[#6366f1] to-[#a855f7] px-8 py-3.5 text-lg font-semibold text-white transition-all duration-200 ease-out group-hover:brightness-110">
+              <div className="flex min-w-[200px] items-center justify-center gap-2 rounded-full bg-primary px-8 py-3.5 text-lg font-semibold text-white transition-all duration-200 ease-out group-hover:brightness-110">
                 <MousePointer2 className="h-5 w-5 fill-white" />
                 <span>Register Study Group</span>
               </div>
@@ -50,27 +56,34 @@ export function Hero() {
             </a>
           </div>
 
-          {/* Toast Notification */}
+        </div>
+      </div>
+
+      {/* Toast Notification — portaled to <body> so `fixed` isn't trapped by the
+          translateZ(0) hack in globals.css applied to everything under <main> */}
+      {mounted &&
+        createPortal(
           <div
-            className={`mt-4 flex items-center gap-3 rounded-xl border border-amber-200 bg-amber-50 px-5 py-3 shadow-lg transition-all duration-200 ease-out ${
+            className={`fixed inset-x-0 top-24 z-120 flex justify-center px-4 transition-all duration-200 ease-out ${
               showToast
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 -translate-y-2 pointer-events-none"
             }`}
           >
-            <span className="text-sm text-amber-800">
-              Registration is currently closed. Stay tuned for the next recruitment!
-            </span>
-            <button
-              onClick={() => setShowToast(false)}
-              className="shrink-0 rounded-full p-0.5 text-amber-500 hover:bg-amber-100 hover:text-amber-700 transition-colors duration-150 ease-out cursor-pointer"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          </div>
-
-        </div>
-      </div>
+            <div className="flex max-w-sm items-center gap-3 rounded-xl border border-amber-200 bg-amber-50 px-5 py-3 shadow-lg sm:max-w-md">
+              <span className="text-sm text-amber-800">
+                Registration is currently closed. Stay tuned for the next recruitment!
+              </span>
+              <button
+                onClick={() => setShowToast(false)}
+                className="shrink-0 rounded-full p-0.5 text-amber-500 hover:bg-amber-100 hover:text-amber-700 transition-colors duration-150 ease-out cursor-pointer"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          </div>,
+          document.body
+        )}
     </section>
   );
 }
