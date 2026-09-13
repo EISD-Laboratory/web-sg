@@ -49,26 +49,16 @@ export function Envelope({ status }: SimpleEnvelopeProps) {
   return (
     <div className="flex justify-center px-4 pt-20 pb-10">
       <div className="relative">
-        {/* soft brand glow — lifts envelope off the page, no hard border */}
-        {isPassed && (
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -inset-10 rounded-full bg-secondary/15 blur-3xl"
-          />
-        )}
-
         <div className="relative" style={{ perspective: "1200px" }}>
           <div
             className={cn(
-              "relative w-60 h-32 sm:w-64 sm:h-36",
+              "relative w-48 h-28 sm:w-52 sm:h-32",
               "rounded-b-2xl",
               isPassed ? "bg-[#00d97a]" : "bg-slate-200"
             )}
             style={{
               transformStyle: "preserve-3d",
-              boxShadow: isPassed
-                ? "0 24px 48px -16px rgba(0, 217, 122, 0.4), 0 4px 12px -4px rgba(0, 168, 94, 0.25)"
-                : "0 16px 32px -16px rgba(100, 116, 139, 0.4)",
+              boxShadow: "0 16px 32px -16px rgba(100, 116, 139, 0.4)",
             }}
           >
             {/* mouth interior — full-bleed so no corner notches, fades in as flap lifts */}
@@ -84,15 +74,15 @@ export function Envelope({ status }: SimpleEnvelopeProps) {
             {/* Letter — white card, purple greeting pinned to top */}
             <div
               aria-hidden
-              className="absolute bottom-1 left-1/2 w-[76%] h-[86%] rounded-lg bg-white flex flex-col items-center px-3 overflow-hidden"
+              className="absolute bottom-1 left-1/2 w-[76%] h-[85%] rounded-lg bg-white flex flex-col items-center px-3 overflow-hidden"
               style={{
                 paddingTop: 8,
                 opacity: letterOut ? 1 : 0,
                 transform: letterOut
                   ? "translateX(-50%) translateY(-68px) scale(1)"
-                  : "translateX(-50%) translateY(14px) scale(0.94)",
+                  : "translateX(-50%) translateY(4px) scale(0.94)",
                 transition:
-                  "transform 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.15s, opacity 0.45s ease-out",
+                  "transform 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.15s, opacity 0.5s ease-out",
                 zIndex: 20,
                 boxShadow:
                   "0 8px 20px -8px rgba(15, 23, 42, 0.18), 0 1px 3px rgba(15, 23, 42, 0.08)",
