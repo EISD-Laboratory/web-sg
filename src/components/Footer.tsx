@@ -7,9 +7,9 @@ export function Footer() {
     <footer className="mt-16 w-full bg-[#1C1629] py-16 text-white">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-          
+
           {/* Brand Section */}
-          <div className="space-y-4">
+          <div className="animate-fade-in-up stagger-0 space-y-4">
             <div className="relative mb-2 h-16 w-40">
               <Image
                 src="/images/logo-vertical-eisd.webp"
@@ -28,12 +28,12 @@ export function Footer() {
           </div>
 
           {/* Get In Touch */}
-          <div className="space-y-4">
+          <div className="animate-fade-in-up stagger-1 space-y-4">
             <h3 className="text-lg font-semibold">Get In Touch</h3>
             <ul className="space-y-3 text-gray-400">
               <li className="flex items-start gap-3">
                 <Mail className="mt-1 h-5 w-5 shrink-0 text-gray-300" />
-                <a href="mailto:eisdlaboratory@gmail.com" className="hover:text-white transition-colors">
+                <a href="mailto:eisdlaboratory@gmail.com" className="hover:text-white transition-colors duration-200 ease-out">
                   eisdlaboratory@gmail.com
                 </a>
               </li>
@@ -49,14 +49,14 @@ export function Footer() {
           </div>
 
           {/* Socials */}
-          <div className="space-y-4">
+          <div className="animate-fade-in-up stagger-2 space-y-4">
             <h3 className="text-lg font-semibold">Socials</h3>
             <div className="flex gap-4">
               <Link
                 href="https://www.instagram.com/peopleateisd/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-all duration-200 ease-out hover:bg-white/20 hover:scale-110 active:scale-95"
               >
                 <Instagram className="h-5 w-5" />
               </Link>
@@ -64,7 +64,7 @@ export function Footer() {
                 href="https://www.linkedin.com/company/eisd-laboratory"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-all duration-200 ease-out hover:bg-white/20 hover:scale-110 active:scale-95"
               >
                 <Linkedin className="h-5 w-5" />
               </Link>
@@ -72,7 +72,7 @@ export function Footer() {
                 href="https://github.com/EISD-Laboratory/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-all duration-200 ease-out hover:bg-white/20 hover:scale-110 active:scale-95"
               >
                 <Github className="h-5 w-5" />
               </Link>

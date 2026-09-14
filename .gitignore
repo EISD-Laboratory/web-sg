@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# playwright-cli generated output
+.playwright-cli/
+
 # next.js
 /.next/
 /out/
