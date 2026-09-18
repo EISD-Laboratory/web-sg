@@ -62,6 +62,8 @@ design.md
 
 docs/plan-cert-encrypted-lookup.md
 
+/public/certificate-data.json
+
 .agents
 .codex
 .claude
