@@ -1,5 +1,6 @@
 import { StudentResult } from "./types";
 
+
 export const TECHNOPRENEUR_RESULTS: StudentResult[] = [
   /*{
     name: "Nama Contoh",
