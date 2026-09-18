@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { StudentCertificate } from "@/data/certificates/types";
 import { CERTIFICATE_NIM_STORAGE_KEY } from "@/lib/certificate-session";
+import { lookupCertificate } from "@/lib/certificateCrypto";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Envelope } from "@/components/Envelope";
@@ -29,8 +30,7 @@ function CertificateResult() {
 
     let cancelled = false;
 
-    fetch(`/api/certificates?nim=${encodeURIComponent(nim)}`)
-      .then((res) => (res.ok ? res.json() : null))
+    lookupCertificate(nim)
       .then((data) => {
         if (!cancelled) setStudent(data);
       })

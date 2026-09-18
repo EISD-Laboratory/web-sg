@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { CERTIFICATE_NIM_STORAGE_KEY } from "@/lib/certificate-session";
+import { lookupCertificate } from "@/lib/certificateCrypto";
 
 export function CertificateChecker() {
   const [nim, setNim] = useState("");
@@ -19,15 +20,13 @@ export function CertificateChecker() {
 
     setLoading(true);
     try {
-      const res = await fetch(`/api/certificates?nim=${encodeURIComponent(trimmedNim)}`);
-      if (res.ok) {
-        sessionStorage.setItem(CERTIFICATE_NIM_STORAGE_KEY, trimmedNim);
-        router.push("/announcement");
-      } else {
-        setError("Certificate not found. Please double-check your NIM.");
-      }
+      await lookupCertificate(trimmedNim);
+      sessionStorage.setItem(CERTIFICATE_NIM_STORAGE_KEY, trimmedNim);
+      router.push("/announcement");
     } catch {
-      setError("Something went wrong. Please try again.");
+      // Single generic message for every failure (unknown NIM, corrupt
+      // blob, fetch error) — no oracle.
+      setError("Certificate not found. Please double-check your NIM.");
     } finally {
       setLoading(false);
     }
