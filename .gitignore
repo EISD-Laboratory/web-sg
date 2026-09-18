@@ -60,6 +60,8 @@ next-env.d.ts
 CLAUDE.md
 design.md
 
+docs/plan-cert-encrypted-lookup.md
+
 .agents
 .codex
 .claude

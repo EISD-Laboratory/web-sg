@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { StudentCertificate } from "@/data/certificates";
+import type { StudentCertificate } from "@/data/certificates/types";
 import { CERTIFICATE_NIM_STORAGE_KEY } from "@/lib/certificate-session";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
