@@ -90,7 +90,7 @@ http://localhost:3000
 | `/ui-ux-design` | Detail divisi UI/UX Design |
 | `/technopreneur` | Detail divisi Technopreneur |
 | `/intelligence-system` | Detail divisi Intelligence System |
-| `/announcement?nim=<NIM>` | Halaman hasil seleksi berdasarkan NIM |
+| `/announcement` | Halaman hasil sertifikat; NIM dikirim lewat `sessionStorage` (diisi oleh form pencarian di `/`), bukan lewat query URL |
 
 ## Mengubah Data Pengumuman
 

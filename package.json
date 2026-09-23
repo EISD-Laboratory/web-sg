@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:certificate-data": "node scripts/build-certificate-blobs.mjs",
+    "prebuild": "npm run build:certificate-data",
     "start": "next start",
     "lint": "eslint"
   },

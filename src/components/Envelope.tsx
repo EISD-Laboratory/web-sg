@@ -12,23 +12,32 @@ export function Envelope({ status }: SimpleEnvelopeProps) {
   const [letterOut, setLetterOut] = useState(false);
 
   useEffect(() => {
-    // Sequence: Open flap (600ms), then slide letter (1200ms)
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReduced) {
+      setFlapOpen(true);
+      setLetterOut(true);
+      return;
+    }
+
     const flapTimer = setTimeout(() => {
       setFlapOpen(true);
-      
-      // Trigger confetti slightly after flap starts opening
+
       if (status === "Passed") {
         setTimeout(() => {
           confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 }
+            particleCount: 110,
+            spread: 75,
+            origin: { y: 0.6 },
+            colors: ["#00d97a", "#00e681", "#494ca0", "#FFC53D", "#ffffff"],
           });
-        }, 300); // 600ms + 300ms = 900ms total delay
+        }, 350);
       }
     }, 600);
 
-    const letterTimer = setTimeout(() => setLetterOut(true), 1200);
+    const letterTimer = setTimeout(() => setLetterOut(true), 1150);
     return () => {
       clearTimeout(flapTimer);
       clearTimeout(letterTimer);
@@ -38,129 +47,130 @@ export function Envelope({ status }: SimpleEnvelopeProps) {
   const isPassed = status === "Passed";
 
   return (
-    <div className="relative flex items-center justify-center pt-12 pb-8">
-      {/* 
-        Container Frame 
-        Total Height: h-32 (128px)
-        Envelope Body Height: h-20 (80px) -> occupies bottom 80px
-        Flap Height: h-12 (48px) -> fits exactly in the top 48px when open
-      */}
-      <div className="relative h-32 w-48">
+    <div className="flex justify-center px-4 pt-20 pb-10">
+      <div className="relative">
+        <div className="relative" style={{ perspective: "1200px" }}>
+          <div
+            className={cn(
+              "relative w-48 h-28 sm:w-52 sm:h-32",
+              "rounded-b-2xl",
+              isPassed ? "bg-[#00d97a]" : "bg-slate-200"
+            )}
+            style={{
+              transformStyle: "preserve-3d",
+              boxShadow: "0 16px 32px -16px rgba(100, 116, 139, 0.4)",
+            }}
+          >
+            {/* mouth interior — full-bleed so no corner notches, fades in as flap lifts */}
+            <div
+              aria-hidden
+              className={cn(
+                "absolute inset-x-0 top-0 h-6 rounded-t-sm transition-opacity duration-500",
+                isPassed ? "bg-[#007a46]" : "bg-slate-400"
+              )}
+              style={{ opacity: flapOpen ? 1 : 0 }}
+            />
 
-        {/* Confetti (Only if passed) */}
-        {isPassed && letterOut && (
-          <div className="absolute inset-0 pointer-events-none z-50">
-            {[...Array(12)].map((_, i) => (
-              <span
-                key={i}
+            {/* Letter — white card, purple greeting pinned to top */}
+            <div
+              aria-hidden
+              className="absolute bottom-1 left-1/2 w-[76%] h-[85%] rounded-lg bg-white flex flex-col items-center px-3 overflow-hidden"
+              style={{
+                paddingTop: 8,
+                opacity: letterOut ? 1 : 0,
+                transform: letterOut
+                  ? "translateX(-50%) translateY(-68px) scale(1)"
+                  : "translateX(-50%) translateY(4px) scale(0.94)",
+                transition:
+                  "transform 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.15s, opacity 0.5s ease-out",
+                zIndex: 20,
+                boxShadow:
+                  "0 8px 20px -8px rgba(15, 23, 42, 0.18), 0 1px 3px rgba(15, 23, 42, 0.08)",
+              }}
+            >
+              <div
                 className={cn(
-                  "absolute rounded-full animate-confetti opacity-0",
-                  [
-                    "bg-yellow-400 h-2 w-2", "bg-blue-400 h-1.5 w-3", "bg-pink-400 h-2 w-2",
-                    "bg-green-400 h-1.5 w-1.5", "bg-purple-400 h-2.5 w-1.5", "bg-orange-400 h-2 w-2"
-                  ][i % 6]
+                  "text-[10px] font-extrabold uppercase whitespace-nowrap",
+                  isPassed ? "text-primary" : "text-slate-400"
+                )}
+                style={{ letterSpacing: "0.18em" }}
+              >
+                {isPassed ? "Congratulations" : "Notice"}
+              </div>
+              <div
+                className={cn(
+                  "mt-1.5 h-[3px] w-10 rounded-full",
+                  isPassed ? "bg-secondary/60" : "bg-slate-200"
+                )}
+              />
+              <div className="mt-2.5 h-1.5 w-[45%] self-start rounded-full bg-slate-200" />
+              <div className="mt-1.5 h-1.5 w-[60%] self-start rounded-full bg-slate-100" />
+              <div className="mt-1.5 h-1.5 w-[52%] self-start rounded-full bg-slate-100" />
+            </div>
+
+            {/* Left pocket — slightly deeper shade for 3D */}
+            <div
+              className="absolute bottom-0 h-full w-full"
+              style={{ zIndex: 30 }}
+            >
+              <div
+                className={cn(
+                  "h-full w-full rounded-b-2xl",
+                  isPassed ? "bg-[#00c26f]" : "bg-slate-300"
                 )}
                 style={{
-                  top: "40%",
-                  left: "50%",
-                  animationDelay: `${i * 0.1}s`,
-                  transform: `translate(-50%, -50%) rotate(${i * 60}deg) translateY(-80px)`,
+                  clipPath: "polygon(0 0, 100% 100%, 0 100%)",
                 }}
               />
-            ))}
-          </div>
-        )}
+            </div>
 
-        {/* ============================================ */}
-        {/* LAYER 1 (z-10): Envelope Back Body          */}
-        {/* Height: 20 (80px), Aligned Bottom           */}
-        {/* ============================================ */}
-        <div
-          className={cn(
-            "absolute bottom-0 w-full h-20 rounded-b-md shadow-sm z-10",
-            isPassed ? "bg-primary" : "bg-gray-400"
-          )}
-        />
-
-        {/* ============================================ */}
-        {/* LAYER 2 (z-15): Top Flap                    */}
-        {/* Position: Top-12 (48px from top).           */}
-        {/* This aligns exactly with the top of the body (128 - 80 = 48). */}
-        {/* Height: 12 (48px).                          */}
-        {/* Origin: Top.                                */}
-        {/* Closed (0deg): Hangs down over the body.    */}
-        {/* Open (180deg): Flips up into the top space. */}
-        {/* ============================================ */}
-        <div
-          className={cn(
-            "absolute left-0 w-full h-12 z-15 origin-top transition-transform duration-700 ease-in-out",
-            "top-12" 
-          )}
-          style={{
-            transformStyle: "preserve-3d",
-            transform: flapOpen ? "rotateX(180deg)" : "rotateX(0deg)",
-          }}
-        >
-          <svg
-            viewBox="0 0 100 40" 
-            className="w-full h-full drop-shadow-sm" 
-            preserveAspectRatio="none"
-          >
-            {/* 
-               Triangle pointing DOWN.
-               Tip reaches bottom of the flap height.
-            */}
-            <path
-              d="M0,0 L50,40 L100,0 Z"
-              className={isPassed ? "fill-primary" : "fill-gray-500"}
-            />
-          </svg>
-        </div>
-
-        {/* ============================================ */}
-        {/* LAYER 3 (z-20): Letter / Paper               */}
-        {/* Slides up from inside                       */}
-        {/* ============================================ */}
-        <div
-          className={cn(
-            "absolute left-1/2 -translate-x-1/2 w-[90%] bg-white rounded-md shadow-sm border border-gray-100 z-20 transition-all duration-1000 ease-out flex flex-col items-center justify-center p-3",
-            letterOut
-              ? "bottom-[35%] h-[75%] opacity-100" // Sticks out nicely
-              : "bottom-0 h-[60%] opacity-0"      // Hidden inside
-          )}
-        >
-           {/* Content skeleton */}
-           <div className="w-full space-y-2 opacity-60">
-             <div className="h-1.5 w-1/3 bg-gray-300 rounded-full mx-auto" />
-             <div className="h-1 w-full bg-gray-200 rounded-full" />
-             <div className="h-1 w-5/6 bg-gray-200 rounded-full mx-auto" />
-             <div className="h-1 w-full bg-gray-200 rounded-full" />
-           </div>
-           
-           <div className={cn(
-             "mt-3 text-[10px] font-bold uppercase tracking-widest",
-             isPassed ? "text-primary" : "text-gray-400"
-           )}>
-             {isPassed ? "Accepted" : "Notice"}
-           </div>
-        </div>
-
-        {/* ============================================ */}
-        {/* LAYER 4 (z-30): Front Pocket                */}
-        {/* Height: 20 (80px), Aligned Bottom           */}
-        {/* ============================================ */}
-        <div className="absolute bottom-0 w-full h-20 z-30 pointer-events-none rounded-b-md overflow-hidden">
-           <svg viewBox="0 0 100 60" className="w-full h-full" preserveAspectRatio="none">
-              {/* Pocket shape */}
-              <path 
-                d="M0,0 L50,35 L100,0 L100,60 L0,60 Z" 
-                className={isPassed ? "fill-primary" : "fill-gray-400"}
+            {/* Right pocket — lightest, catches the light */}
+            <div
+              className="absolute bottom-0 h-full w-full"
+              style={{ zIndex: 30 }}
+            >
+              <div
+                className={cn(
+                  "h-full w-full rounded-b-2xl",
+                  isPassed ? "bg-[#00dd80]" : "bg-slate-200"
+                )}
+                style={{ clipPath: "polygon(100% 0, 100% 100%, 0 100%)" }}
               />
-              {/* Inner stroke for depth */}
-              <path d="M0,0 L50,35 L100,0" fill="none" stroke="rgba(0,0,0,0.1)" strokeWidth="0.5" />
-           </svg>
-        </div>
+            </div>
 
+            {/* Top flap — darkest brand, auto-opens once */}
+            <div
+              aria-hidden
+              className="absolute top-0 h-1/2 w-full origin-top"
+              style={{
+                zIndex: flapOpen ? 10 : 40,
+                transform: flapOpen ? "rotateX(180deg)" : "rotateX(0deg)",
+                transition: "transform 0.7s cubic-bezier(0.77, 0, 0.175, 1)",
+                transformStyle: "preserve-3d",
+              }}
+            >
+              <div
+                className={cn(
+                  "h-full w-full",
+                  isPassed ? "bg-[#00a85e]" : "bg-slate-400"
+                )}
+                style={{
+                  clipPath: "polygon(0 0, 100% 0, 50% 100%, 0 0)",
+                  boxShadow: flapOpen
+                    ? "none"
+                    : "0 6px 12px -6px rgba(0, 168, 94, 0.45)",
+                }}
+              />
+              {/* flap sheen — only while closed so the open backface stays clean */}
+              {isPassed && !flapOpen && (
+                <div
+                  className="absolute inset-0 bg-white/10"
+                  style={{ clipPath: "polygon(0 0, 100% 0, 50% 100%, 0 0)" }}
+                />
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

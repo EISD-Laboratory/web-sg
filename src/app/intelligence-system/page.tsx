@@ -51,13 +51,13 @@ export default function IntelligenceSystemPage() {
       <div className="max-w-5xl mx-auto space-y-8 pt-24 px-6 md:px-12 pb-12 transition-all duration-500">
         
         {/* Back Button */}
-        <Link href="/" className="inline-flex items-center gap-2 text-[#311081D9] font-medium hover:underline transition-all group">
+        <Link href="/" className="animate-fade-in-up stagger-0 inline-flex items-center gap-2 text-[#311081D9] font-medium hover:underline transition-all group">
             <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
             Back to Home
         </Link>
         
         {/* Header Section (Collapsible Info Box) */}
-        <div className="relative bg-white/95 md:bg-white/30 md:backdrop-blur-xl border border-white/40 shadow-xl rounded-3xl overflow-hidden transition-all duration-500 ease-in-out">
+        <div className="animate-fade-in-up stagger-1 relative bg-white/95 md:bg-white/30 md:backdrop-blur-xl border border-white/40 shadow-xl rounded-3xl overflow-hidden transition-all duration-500 ease-in-out">
              {/* Subtle shine effect */}
              <div className="absolute inset-0 bg-linear-to-br from-white/40 via-transparent to-transparent opacity-50 pointer-events-none"></div>
 
@@ -118,7 +118,7 @@ export default function IntelligenceSystemPage() {
         </div>
 
         {/* Syllabus Section (Vertical Stack) */}
-        <div className="space-y-6 pt-4">
+        <div className="animate-fade-in-up stagger-2 space-y-6 pt-4">
             <h2 className="text-3xl font-bold text-[#311081D9] pl-2 border-l-4 border-[#00D97A]">
                 Weekly Learning Modules
             </h2>
@@ -126,7 +126,7 @@ export default function IntelligenceSystemPage() {
             {/* Vertical Stack Container */}
             <div className="flex flex-col gap-4">
                 {syllabus.map((week, idx) => (
-                    <div key={idx} className="w-full relative group">
+                    <div key={idx} className="animate-fade-in-up w-full relative group" style={{ animationDelay: `${(idx + 3) * 60}ms` }}>
                         <div className="absolute inset-0 bg-[#311081D9] rounded-xl blur opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                         <div className="relative w-full bg-white/95 md:bg-white/40 md:backdrop-blur-md border border-white/50 p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-6">
                             <div className="shrink-0 px-4 py-2 rounded-full bg-[#00D97A]/20 text-[#006e3e] text-sm font-bold">

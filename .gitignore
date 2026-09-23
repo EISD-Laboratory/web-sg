@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# playwright-cli generated output
+.playwright-cli/
+
 # next.js
 /.next/
 /out/
@@ -56,6 +59,10 @@ next-env.d.ts
 # agent guide files
 CLAUDE.md
 design.md
+
+docs/plan-cert-encrypted-lookup.md
+
+/public/certificate-data.json
 
 .agents
 .codex

@@ -74,13 +74,13 @@ export default function UiUxDesignPage() {
       <div className="max-w-5xl mx-auto space-y-8 pt-24 px-6 md:px-12 pb-12">
         
         {/* Back Button */}
-        <Link href="/" className="inline-flex items-center gap-2 text-[#311081D9] font-medium hover:underline transition-all group">
+        <Link href="/" className="animate-fade-in-up stagger-0 inline-flex items-center gap-2 text-[#311081D9] font-medium hover:underline transition-all group">
             <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
             Back to Home
         </Link>
         
         {/* Header Section (Collapsible Info Box) */}
-        <div className="relative bg-white/95 md:bg-white/50 md:backdrop-blur-md border border-white/40 shadow-xl rounded-3xl overflow-hidden transition-colors duration-300">
+        <div className="animate-fade-in-up stagger-1 relative bg-white/95 md:bg-white/50 md:backdrop-blur-md border border-white/40 shadow-xl rounded-3xl overflow-hidden transition-colors duration-300">
              {/* Subtle shine effect */}
              <div className="absolute inset-0 bg-linear-to-br from-white/40 via-transparent to-transparent opacity-50 pointer-events-none"></div>
 
@@ -141,7 +141,7 @@ export default function UiUxDesignPage() {
         </div>
 
         {/* Syllabus Section (Phases) */}
-        <div className="space-y-6 pt-4">
+        <div className="animate-fade-in-up stagger-2 space-y-6 pt-4">
             <h2 className="text-3xl font-bold text-[#311081D9] pl-2 border-l-4 border-[#00D97A]">
                 Learning Phases
             </h2>
@@ -151,7 +151,7 @@ export default function UiUxDesignPage() {
                 {phases.map((phase, idx) => {
                     const isActive = activePhase === idx;
                     return (
-                        <div key={idx} className="w-full relative group">
+                        <div key={idx} className="animate-fade-in-up w-full relative group" style={{ animationDelay: `${(idx + 3) * 60}ms` }}>
                             <div className={cn(
                                 "absolute inset-0 bg-[#311081D9] rounded-2xl blur transition-opacity duration-300",
                                 isActive ? "opacity-10" : "opacity-0 group-hover:opacity-5"

@@ -125,7 +125,7 @@ export function WelcomeModal({
               target="_blank"
               rel="noopener noreferrer"
               onClick={close}
-              className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-[#6366f1] to-[#a855f7] px-6 py-3 font-bold text-white shadow-lg shadow-purple-500/20 transition-all hover:scale-105 hover:brightness-110 active:scale-95"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-bold text-white shadow-sm transition-all hover:scale-105 hover:brightness-110 hover:shadow-md active:scale-95"
             >
               {buttonText}
               <ExternalLink className="h-4 w-4" strokeWidth={1.8} />
